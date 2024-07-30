@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS booklibrary;
+CREATE DATABASE booklibrary;
