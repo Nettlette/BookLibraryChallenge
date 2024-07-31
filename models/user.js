@@ -38,6 +38,14 @@ User.init(
                 len: [8],
             },
         },
+        parent: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: "user",
+                key: "id",
+            },
+        },
     },
     {
         hooks: {
