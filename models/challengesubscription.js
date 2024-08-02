@@ -11,7 +11,7 @@ ChallengeSubscription.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        challenge: {
+        challengeid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -19,7 +19,7 @@ ChallengeSubscription.init(
                 key: "id",
             },
         },
-        user: {
+        userid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {

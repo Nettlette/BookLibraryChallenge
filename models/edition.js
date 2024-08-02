@@ -19,6 +19,14 @@ Edition.init(
                 key: "id",
             },
         },
+        publisher: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: "lookup",
+                key: "id",
+            },
+        },
         isbn10: {
             type: DataTypes.STRING,
         },
@@ -28,17 +36,31 @@ Edition.init(
         asin: {
             type: DataTypes.STRING,
         },
+        lccn: {
+            type: DataTypes.STRING,
+        },
         publishedDate: {
             type: DataTypes.DATE,
         },
         isBC: {
             type: DataTypes.BOOLEAN,
         },
+        language: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: "lookup",
+                key: "id",
+            },
+        },
         numpages: {
             type: DataTypes.INTEGER,
         },
         audiolength: {
             type: DataTypes.DECIMAL
+        },
+        details: {
+            type: DataTypes.STRING
         }
     },
     {

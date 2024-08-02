@@ -11,7 +11,7 @@ BooksRead.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        user: {
+        userid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
