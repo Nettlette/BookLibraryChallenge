@@ -19,7 +19,7 @@ BooksRead.init(
                 key: "id",
             },
         },
-        edition: {
+        editionid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {

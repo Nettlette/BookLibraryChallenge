@@ -11,7 +11,7 @@ CompletedElement.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        challengesubscription: {
+        challengesubscriptionid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -19,7 +19,7 @@ CompletedElement.init(
                 key: "id",
             },
         },
-        challengeelement: {
+        challengeelementid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -31,7 +31,7 @@ CompletedElement.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: "bookread",
+                model: "booksread",
                 key: "id",
             },
         },

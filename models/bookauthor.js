@@ -11,7 +11,7 @@ BookAuthor.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        book: {
+        bookid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -19,14 +19,14 @@ BookAuthor.init(
                 key: "id",
             },
         },
-        author: {
+        authorid: {
             type: DataTypes.INTEGER,
             references: {
                 model: "author",
                 key: "id",
             },
         },
-        note: {
+        noteid: {
             type: DataTypes.INTEGER,
             references: {
                 model: "lookup",

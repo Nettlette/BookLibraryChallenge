@@ -21,7 +21,7 @@ Book.init(
         originalPublishedDate: {
             type: DataTypes.DATE,
         },
-        seriesId: {
+        seriesid: {
             type: DataTypes.INTEGER,
             allowNull: true,
             references: {

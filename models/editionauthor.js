@@ -11,7 +11,7 @@ EditionAuthor.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        edition: {
+        editionid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -19,14 +19,14 @@ EditionAuthor.init(
                 key: "id",
             },
         },
-        author: {
+        authorid: {
             type: DataTypes.INTEGER,
             references: {
                 model: "author",
                 key: "id",
             },
         },
-        note: {
+        noteid: {
             type: DataTypes.INTEGER,
             references: {
                 model: "lookup",

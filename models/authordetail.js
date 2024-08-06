@@ -11,7 +11,7 @@ AuthorDetail.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        author: {
+        authorid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -19,7 +19,7 @@ AuthorDetail.init(
                 key: "id",
             },
         },
-        detail: {
+        detailid: {
             type: DataTypes.INTEGER,
             references: {
                 model: "lookup",

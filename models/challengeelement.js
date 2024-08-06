@@ -11,7 +11,7 @@ ChallengeElement.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        challenge: {
+        challengeid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {

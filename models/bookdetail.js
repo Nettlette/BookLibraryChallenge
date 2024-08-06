@@ -11,7 +11,7 @@ BookDetail.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        book: {
+        bookid: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -19,7 +19,7 @@ BookDetail.init(
                 key: "id",
             },
         },
-        detail: {
+        detailid: {
             type: DataTypes.INTEGER,
             references: {
                 model: "lookup",
