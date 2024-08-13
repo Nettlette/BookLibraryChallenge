@@ -28,6 +28,7 @@ BookAuthor.init(
         },
         noteid: {
             type: DataTypes.INTEGER,
+            allowNull: true,
             references: {
                 model: "lookup",
                 key: "id",

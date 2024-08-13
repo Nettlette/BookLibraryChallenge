@@ -17,9 +17,6 @@ Author.init(
         lastname: {
             type: DataTypes.STRING,
         },
-        originalPublishedDate: {
-            type: DataTypes.DATE,
-        },
         DOB: {
             type: DataTypes.DATE,
         },
