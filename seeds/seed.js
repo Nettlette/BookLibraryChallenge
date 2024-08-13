@@ -35,12 +35,20 @@ const seedDatabase = async () => {
   //   console.log(user.email);
   //   console.log(user.password);
   //   User.create({
-  //     firstname: user.firstName,
-  //     lastname: user.lastName,
-  //     email: user.email,
+  //     firtname: user.lastName,
+  //     emastname: user.firstName,
+  //     lasil: user.email,
   //     password: user.password
   //   });
   // });
+  for (const u of userData) {
+    await User.create({
+      firstName: u.firstName,
+      lastName: u.lastName,
+      email: u.email,
+      password: u.password
+    });
+  }
 
   // Create books
   for (const b of bookData) {
@@ -169,9 +177,6 @@ const seedDatabase = async () => {
       console.log(result);
     });
   });
-  thisbook = await Book.findAll();
-  console.log(thisbook);
-
 
   process.exit(0);
 };
