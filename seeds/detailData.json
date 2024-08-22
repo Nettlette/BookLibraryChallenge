@@ -1,0 +1,30 @@
+[
+    {
+        "class": "location",
+        "name": "Arizona"
+    },
+    {
+        "class": "location",
+        "name": "space"
+    },
+    {
+        "class": "location",
+        "name": "fantasy"
+    },
+    {
+        "class": "genre",
+        "name": "fantasy"
+    },
+    {
+        "class": "genre",
+        "name": "LitRPG"
+    },
+    {
+        "class": "genre",
+        "name": "military"
+    },
+    {
+        "class": "genre",
+        "name": "post apocalyptic"
+    }
+]

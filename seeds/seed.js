@@ -21,26 +21,11 @@ const userData = require("./userData.json");
 const bookData = require("./bookData.json");
 const authorData = require("./authorData.json");
 const seriesData = require("./seriesData.json");
+const detailData = require("./detailData.json");
 
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
-  // const users = await User.bulkCreate(userData, {
-  //   individualHooks: true,
-  //   returning: true,
-  // });
-  // userData.forEach((user) => {
-  //   console.log(user.firstName);
-  //   console.log(user.lastName);
-  //   console.log(user.email);
-  //   console.log(user.password);
-  //   User.create({
-  //     firtname: user.lastName,
-  //     emastname: user.firstName,
-  //     lasil: user.email,
-  //     password: user.password
-  //   });
-  // });
   for (const u of userData) {
     await User.create({
       firstName: u.firstName,
@@ -103,7 +88,7 @@ const seedDatabase = async () => {
       title: "Iron Dragoon"
     }
   });
-  Author.findAll({
+  thisauthor = await Author.findAll({
     where: {
       firstname: "Richard"
     }
@@ -177,6 +162,44 @@ const seedDatabase = async () => {
       console.log(result);
     });
   });
+
+  // Create lookups
+  for (const l of detailData) {
+    await Lookup.create( {
+      ...l
+    });
+  }
+
+  await Book.findAll({
+    where: {
+      title: "The Honor of the Queen"
+    }
+  }).then(book => {
+    Lookup.findAll({
+      where: {
+        name: "space",
+        class: "location"
+      }
+    }).then(l => {
+      BookDetail.create({
+        bookid: book[0].dataValues.id,
+        detailid: l[0].dataValues.id
+      });
+    });
+  }).then(book => {
+    Lookup.findAll({
+      where: {
+        name: "military",
+        class: "genre"
+      }
+    }).then(l => {
+      BookDetail.create({
+        bookid: book[0].dataValues.id,
+        detailid: l[0].dataValues.id
+      })
+    })
+  });
+
 
   process.exit(0);
 };
