@@ -29,6 +29,10 @@ Book.init(
                 key: "id",
             },
         },
+        seriesorder: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
     },
     {
         sequelize,

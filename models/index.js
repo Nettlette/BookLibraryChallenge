@@ -43,6 +43,22 @@ Book.belongsToMany(Author, {
     onDelete: "CASCADE",
 });
 
+Book.belongsToMany(Lookup, {
+    through: BookDetail,
+    foreignKey: "bookid",
+    onDelete: "CASCADE",
+});
+
+Lookup.belongsToMany(Book, {
+    through: BookDetail,
+    foreignKey: "detailid",
+    onDelete: "CASCADE",
+});
+
+BookDetail.belongsTo(Lookup, {
+    foreignKey: "detailid",
+});
+
 Author.belongsToMany(Book, {
     through: BookAuthor,
     foreignKey: "authorid",
@@ -58,7 +74,12 @@ EditionAuthor.belongsTo(Edition, {
     foreignKey: "editionid"
 });
 
-Book.hasOne(Series, {
+Book.belongsTo(Series, {
+    foreignKey: "seriesid",
+    onDelete: "CASCADE",
+});
+
+Series.hasOne(Book, {
     foreignKey: "seriesid",
     onDelete: "CASCADE",
 });
@@ -115,24 +136,6 @@ Author.hasMany(AuthorDetail, {
 
 AuthorDetail.belongsTo(Author, {
     foreignKey: "authorid",
-});
-
-Book.hasMany(BookDetail, {
-    foreignKey: "bookid",
-    onDelete: "CASCADE",
-});
-
-BookDetail.belongsTo(Book, {
-    foreignKey: "bookid",
-});
-
-Lookup.hasMany(BookDetail, {
-    foreignKey: "detailid",
-    onDelete: "CASCADE",
-});
-
-BookDetail.belongsTo(Lookup, {
-    foreignKey: "detailid",
 });
 
 Edition.hasMany(BooksRead, {

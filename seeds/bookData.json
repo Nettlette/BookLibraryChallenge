@@ -1,14 +1,17 @@
 [
     {
         "title": "The Honor of the Queen",
-        "originalPublishedDate": "01-01-1993"
+        "originalPublishedDate": "01-01-1993",
+        "seriesorder": 1
     },
     {
         "title": "This Plot is Bananas",
-        "originalPublishedDate": "01-01-2021"
+        "originalPublishedDate": "01-01-2021",
+        "seriesorder": 1
     },
     {
         "title": "Iron Dragoon",
-        "originalPublishedDate": "01-01-2017"
+        "originalPublishedDate": "01-01-2017",
+        "seriesorder": 1
     }
 ]
