@@ -13,14 +13,18 @@
     <header class="navBar">
       <nav>
         {{#if logged_in}}
-          <a href="/">Home</a>
-          <a href="/dashboard">Dashboard</a>
-          <span>Hello, {{username}}</span>
-          <button class="no-button" id="logout">Logout</button>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><span>Hello, {{username}}</span></li>
+          <li><button class="no-button" id="logout">Logout</button></li>
+        </ul>
         {{else}}
-          <a href="/">Home</a>
-          <a href="/dashboard">Dashboard</a>
-          <a href="/login">Login</a>
+        <ul>
+          <li><a class="float-left" href="/">Home</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
         {{/if}}
       </nav>
     </header>

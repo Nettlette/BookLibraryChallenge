@@ -1,15 +1,30 @@
 const router = require("express").Router();
-const { Book, User, BooksRead } = require("../models");
+const { Book, User, BooksRead, Author, Lookup, Series } = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
   try {
     // Get all blogPosts and JOIN with user data and comment data
-    const books = await Book.findAll();
-    
+    const books = await Book.findAll({
+      include: [
+        {
+          model: Author,
+          attributes: ["firstname", "lastname"]
+        },
+        {
+          model: Lookup,
+          attributes: [["name", "detailname"], "class"]
+        },
+        {
+          model: Series,
+          attributes: [["name", "seriesname"]]
+        }
+      ],
+    });
+    console.log(books);
     // Serialize data so the template can read it
     const bookDisplay = books.map((book) =>
-      book.get({ plain: true })
+      book.get({ plain: true, nest: true })
     );
     console.log(bookDisplay);
     // Pass serialized data and session flag into template
