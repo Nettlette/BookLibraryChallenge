@@ -2,18 +2,17 @@
   <div class="card text-dark shadow mb-3 p-3">
     <div class="row">
       <div class="col-6">
-        <h2><a href="/book/{{id}}">{{title}}</a></h2>
-        <p>by
-            {{#each authors}}
-                {{firstname}} {{lastname}}
-            {{/each}}
-        </p>
-        <p>Published {{format_date originalPublishedDate}}</p>
+        <h3><a href="/book/{{id}}">{{title}}</a></h3>
         {{#if seriesid}}
             #{{seriesorder}} of the {{series.seriesname}} series
         {{/if}}
-        {{!-- <button class="btn btn-dark" id="editBtn" data-id="{{id}}">Edit</button>
-        <button class="btn btn-dark" id="deleteBtn" data-id="{{id}}">Delete</button> --}}
+        <br>
+        by
+            {{#each authors}}
+                {{firstname}} {{lastname}}
+            {{/each}}
+          <br>
+        Published {{format_date originalPublishedDate}}
       </div>
       <div class="col-3">
         <h5>Genre</h5>

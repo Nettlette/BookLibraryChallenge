@@ -1,5 +1,13 @@
 const router = require("express").Router();
-const { Book, User, BooksRead, Author, Lookup, Series } = require("../models");
+const {
+  Book,
+  User,
+  BooksRead,
+  Author,
+  Lookup,
+  Series,
+  Edition
+} = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -20,16 +28,66 @@ router.get("/", async (req, res) => {
           attributes: [["name", "seriesname"]]
         }
       ],
+      limit: 20,
     });
-    console.log(books);
+    //console.log(books);
     // Serialize data so the template can read it
     const bookDisplay = books.map((book) =>
       book.get({ plain: true, nest: true })
     );
-    console.log(bookDisplay);
+    //console.log(bookDisplay);
+
+    const booksread = await BooksRead.findAll({
+      order: [['end_date', 'DESC']],
+      include: [
+        {
+          model: Edition,
+          include: [
+            {
+              model: Book,
+              include: [
+                {
+                  model: Author,
+                  attributes: ["firstname", "lastname"]
+                },
+                {
+                  model: Series,
+                  attributes: [["name", "seriesname"]]
+                },
+                {
+                  model: Lookup,
+                  attributes: [['name', 'detail'], 'class']
+                }
+              ]
+            },
+            {
+              model: Author,
+              attributes: ["firstname", "lastname"]
+            }
+          ]
+        },
+        {
+          model: User,
+          // attributes: ["end_date"],
+          // separate: true,
+          // order: [['end_date', 'DESC']]
+        },
+      ]
+    });
+    //console.log(booksread);
+    // Serialize data so the template can read it
+    const bookreadDisplay = booksread.map((book) =>
+      book.get({ plain: true, nest: true })
+    );
+    console.log(bookreadDisplay);
+    //console.log(bookreadDisplay.book.authors);
+    console.log(bookreadDisplay[0].edition.book);
+    // console.log(bookreadDisplay[0].book.lookups);
+
     // Pass serialized data and session flag into template
     res.render("homepage", {
       bookDisplay,
+      bookreadDisplay
       // logged_in: req.session.logged_in,
       // userId: req.session.user_id,
       // username: req.session.username

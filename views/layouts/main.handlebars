@@ -10,26 +10,24 @@
   </head>
 
   <body>
-    <header class="navBar">
       <nav>
         {{#if logged_in}}
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/">BookChallenger</a></li>
+          <li><a href="/dashboard">Books</a></li>
+          <li><a href="/dashboard">Challenges</a></li>
           <li><span>Hello, {{username}}</span></li>
           <li><button class="no-button" id="logout">Logout</button></li>
         </ul>
         {{else}}
         <ul>
-          <li><a class="float-left" href="/">Home</a></li>
-          <li><a href="/dashboard">Dashboard</a></li>
-          <li><a href="/login">Login</a></li>
+          <li><a href="/">BookChallenger</a></li>
+          <li><a href="/dashboard">Books</a></li>
+          <li><a href="/dashboard">Challenges</a></li>
+          <li class="nav-right"><a href="/login">Login</a></li>
         </ul>
         {{/if}}
       </nav>
-    </header>
-
-    <h1 class="text-center">The Books</h1>
 
     <main>
       {{{body}}}

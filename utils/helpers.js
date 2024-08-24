@@ -16,5 +16,9 @@ module.exports = {
         } else {
             return false;
         }
+    },
+
+    format_initials: (first, last) => {
+        return first[0] + '.' + last[0] + '.';
     }
 };

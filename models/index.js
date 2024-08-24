@@ -65,13 +65,16 @@ Author.belongsToMany(Book, {
     onDelete: "CASCADE",
 });
 
-Edition.hasMany(EditionAuthor, {
+Edition.belongsToMany(Author, {
+    through: EditionAuthor,
     foreignKey: "editionid",
     onDelete: "CASCADE",
 });
 
-EditionAuthor.belongsTo(Edition, {
-    foreignKey: "editionid"
+Author.belongsToMany(Edition, {
+    through: EditionAuthor,
+    foreignKey: "editionid",
+    onDelete: "CASCADE,"
 });
 
 Book.belongsTo(Series, {
@@ -91,15 +94,6 @@ Challenge.hasMany(ChallengeSubscription, {
 
 ChallengeSubscription.belongsTo(Challenge, {
     foreignKey: "challengeid",
-});
-
-Author.hasMany(EditionAuthor, {
-    foreignKey: "authorid",
-    onDelete: "CASCADE",
-});
-
-EditionAuthor.belongsTo(Author, {
-    foreignKey: "authorid",
 });
 
 Lookup.hasMany(BookAuthor, {

@@ -1,0 +1,37 @@
+<div class="container booksread">
+  <div class="card text-dark shadow mb-3 p-3">
+    <div class="row">
+      <div class="col-6">
+        <h3><a href="/book/{{id}}">{{edition.book.title}}</a></h3>
+        {{#if edition.book.seriesid}}
+            #{{edition.book.seriesorder}} of the {{edition.book.series.seriesname}} series
+        {{/if}}
+        <br>
+        by
+            {{#each edition.book.authors}}
+                {{firstname}} {{lastname}}
+            {{/each}}
+        <br>
+        Published {{format_date edition.book.originalPublishedDate}}
+        <br>
+        Finished on {{format_date endDate}} by {{format_initials user.firstName user.lastName}}
+      </div>
+      <div class="col-3">
+        <h5>Genre</h5>
+        {{#each edition.book.lookups}}
+            {{#if (compare class '===' "genre")}}
+                {{detail}}
+            {{/if}}
+        {{/each}}
+    </div>
+    <div class="col-3">
+        <h5>Locations</h5>
+        {{#each edition.book.lookups}}
+            {{#if (compare class '===' "location")}}
+                {{detail}}
+            {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
