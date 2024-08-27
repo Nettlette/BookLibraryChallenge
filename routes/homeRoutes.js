@@ -39,9 +39,11 @@ router.get("/", async (req, res) => {
 
     const booksread = await BooksRead.findAll({
       order: [['end_date', 'DESC']],
+      attributes: ['endDate', 'startDate'],
       include: [
         {
           model: Edition,
+          attributes: ['bookid', 'publisher', 'language', 'numpages', 'audiolength'],
           include: [
             {
               model: Book,
@@ -68,29 +70,24 @@ router.get("/", async (req, res) => {
         },
         {
           model: User,
-          // attributes: ["end_date"],
-          // separate: true,
-          // order: [['end_date', 'DESC']]
+          attributes: ['firstName', 'lastName'],
         },
       ]
     });
-    //console.log(booksread);
     // Serialize data so the template can read it
     const bookreadDisplay = booksread.map((book) =>
       book.get({ plain: true, nest: true })
     );
-    console.log(bookreadDisplay);
-    //console.log(bookreadDisplay.book.authors);
-    console.log(bookreadDisplay[0].edition.book);
-    // console.log(bookreadDisplay[0].book.lookups);
-
+    // console.log(bookreadDisplay);
+    // console.log(bookreadDisplay[0].edition.book);
+    // console.log(req);
     // Pass serialized data and session flag into template
     res.render("homepage", {
       bookDisplay,
-      bookreadDisplay
-      // logged_in: req.session.logged_in,
-      // userId: req.session.user_id,
-      // username: req.session.username
+      bookreadDisplay,
+      logged_in: req.session.logged_in,
+      userId: req.session.user_id,
+      username: req.session.username
     });
   } catch (err) {
     console.log(err);

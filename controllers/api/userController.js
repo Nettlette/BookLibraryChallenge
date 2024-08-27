@@ -27,29 +27,32 @@ function addNewUser(req, res) {
 
 // When user logs in as an existing user then this route validates user credentials and logs user in if a match is found in the database
 function login(req, res) {
+  // console.log(req.body);
   User.findOne({ where: { email: req.body.email } })
     .then(user => {
+      console.log(user);
       if(!user) {
         console.log("no user found");
         res.status(400).json({ message: "Incorrect email or password, please try again" });
         return;
       }
+      // console.log('check pw');
+      const pw = user.checkPassword(req.body.password);
+      // console.log(pw);
+      if(pw) {
+        req.session.save(() => {
+          req.session.user_id = user.id;
+          req.session.logged_in = true;
+          req.session.username = user.firstName;
+          console.log(req.session);
 
-      user.checkPassword(req.body.password)
-        .then(pw => {
-          if(!pw) {
-            console.log("no password match");
+          res.json({ user: user, message: "You are now logged in!" });
+        });
+      } else {
+        console.log("no password match");
             res.status(400).json({ message: "Incorrect email or password, please try again" });
             return;
-          }
-
-          req.session.save(() => {
-            req.session.user_id = user.id;
-            req.session.logged_in = true;
-      
-            res.json({ user: userData, message: "You are now logged in!" });
-          });
-        })
+      }
     })
     .catch(err => {
       res.status(400).json(err);
