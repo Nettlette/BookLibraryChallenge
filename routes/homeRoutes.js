@@ -12,7 +12,88 @@ const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
   try {
-    // Get all blogPosts and JOIN with user data and comment data
+    req.session.userId = 1;
+    console.log(req.session.userId);
+    if (req.session.userId == undefined) {
+      // Get all blogPosts and JOIN with user data and comment data
+      const books = await Book.findAll({
+        include: [
+          {
+            model: Author,
+            attributes: ["firstname", "lastname"]
+          },
+          {
+            model: Lookup,
+            attributes: [["name", "detailname"], "class"]
+          },
+          {
+            model: Series,
+            attributes: [["name", "seriesname"]]
+          }
+        ],
+        limit: 20,
+      });
+      //console.log(books);
+      // Serialize data so the template can read it
+      const bookDisplay = books.map((book) =>
+        book.get({ plain: true, nest: true })
+      );
+      //console.log(bookDisplay);
+
+      const booksread = await BooksRead.findAll({
+        order: [['end_date', 'DESC']],
+        attributes: ['endDate', 'startDate'],
+        include: [
+          {
+            model: Edition,
+            attributes: ['bookid', 'publisher', 'language', 'numpages', 'audiolength'],
+            include: [
+              {
+                model: Book,
+                include: [
+                  {
+                    model: Author,
+                    attributes: ["firstname", "lastname"]
+                  },
+                  {
+                    model: Series,
+                    attributes: [["name", "seriesname"]]
+                  },
+                  {
+                    model: Lookup,
+                    attributes: [['name', 'detail'], 'class']
+                  }
+                ]
+              },
+              {
+                model: Author,
+                attributes: ["firstname", "lastname"]
+              }
+            ]
+          },
+          {
+            model: User,
+            attributes: ['firstName', 'lastName'],
+          },
+        ]
+      });
+      // Serialize data so the template can read it
+      const bookreadDisplay = booksread.map((book) =>
+        book.get({ plain: true, nest: true })
+      );
+      console.log(bookreadDisplay);
+      // console.log(bookreadDisplay[0].edition.book);
+      // console.log(req);
+      // Pass serialized data and session flag into template
+      res.render("homepage", {
+        bookDisplay,
+        bookreadDisplay,
+        logged_in: req.session.logged_in,
+        userId: req.session.user_id,
+        username: req.session.username
+      });
+    } else {
+      // Get all blogPosts and JOIN with user data and comment data
     const books = await Book.findAll({
       include: [
         {
@@ -38,8 +119,10 @@ router.get("/", async (req, res) => {
     //console.log(bookDisplay);
 
     const booksread = await BooksRead.findAll({
+      where: { userid: req.session.userId },
       order: [['end_date', 'DESC']],
       attributes: ['endDate', 'startDate'],
+      limit: 1,
       include: [
         {
           model: Edition,
@@ -78,9 +161,7 @@ router.get("/", async (req, res) => {
     const bookreadDisplay = booksread.map((book) =>
       book.get({ plain: true, nest: true })
     );
-    // console.log(bookreadDisplay);
-    // console.log(bookreadDisplay[0].edition.book);
-    // console.log(req);
+    
     // Pass serialized data and session flag into template
     res.render("homepage", {
       bookDisplay,
@@ -89,6 +170,8 @@ router.get("/", async (req, res) => {
       userId: req.session.user_id,
       username: req.session.username
     });
+    }
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

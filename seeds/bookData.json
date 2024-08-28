@@ -2,16 +2,110 @@
     {
         "title": "The Honor of the Queen",
         "originalPublishedDate": "01-01-1993",
-        "seriesorder": 1
+        "series": {
+            "name": "Honor Harrington"
+        },
+        "seriesorder": 1,
+        "author": {
+            "firstname": "David",
+            "lastname": "Weber"
+        },
+        "edition": {
+            "published_date": "01-01-2000",
+            "audiolength": 23.3
+        },
+        "bookread": {
+            "userid": 1,
+            "startdate": "02-03-2020",
+            "enddate": "02-20-2020"
+        },
+        "details": [
+            {
+                "class": "genre",
+                "name": "military"
+            },
+            {
+                "class": "genre",
+                "name": "fantasy"
+            },
+            {
+                "class": "location",
+                "name": "space"
+            }
+        ]
     },
     {
         "title": "This Plot is Bananas",
         "originalPublishedDate": "01-01-2021",
-        "seriesorder": 1
+        "series": {
+            "name": "This Trilogy is Broken"
+        },
+        "seriesorder": 1,
+        "author": {
+            "firstname": "J.P.",
+            "lastname": "Valentine"
+        },
+        "edition": {
+            "published_date": "01-01-2023",
+            "audiolength": 28.5
+        },
+        "bookread": {
+            "userid": 2,
+            "startdate": "03-04-2020",
+            "enddate": "02-21-2021"
+        },
+        "details": [
+            {
+                "class": "genre",
+                "name": "LitRPG"
+            },
+            {
+                "class": "genre",
+                "name": "fantasy"
+            },
+            {
+                "class": "location",
+                "name": "fantasy"
+            }
+        ]
     },
     {
         "title": "Iron Dragoon",
         "originalPublishedDate": "01-01-2017",
-        "seriesorder": 1
+        "series": {
+            "name": "Iron Heart"
+        },
+        "seriesorder": 1,
+        "author": {
+            "firstname": "Richard",
+            "lastname": "Fox"
+        },
+        "edition": {
+            "published_date": "01-01-2020",
+            "audiolength": 18.4
+        },
+        "bookread": {
+            "userid": 3,
+            "startdate": "04-03-2020",
+            "enddate": "08-20-2020"
+        },
+        "details": [
+            {
+                "class": "genre",
+                "name": "military"
+            },
+            {
+                "class": "genre",
+                "name": "fantasy"
+            },
+            {
+                "class": "location",
+                "name": "space"
+            },
+            {
+                "class": "location",
+                "name": "Arizona"
+            }
+        ]
     }
 ]

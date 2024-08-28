@@ -35,170 +35,56 @@ const seedDatabase = async () => {
     });
   }
 
-  // Create books
-  for (const b of bookData) {
-    await Book.create({
-      ...b
-    });
-  }
-
-  // Create authors
-  for (const author of authorData) {
-    await Author.create({
-      ...author
-    });
-  }
-
-  // Match author to book
-  Book.findAll({
-    where: {
-      title: "The Honor of the Queen"
-    }
-  }).then(book => {
-    Author.findAll({
-      where: {
-        firstname: "David"
-      }
-    }).then(author => {
-      BookAuthor.create({
-        bookid: book[0].dataValues.id,
-        authorid: author[0].dataValues.id
-      });
-    });
-  });
-  
-
-  thisbook = await Book.findAll({
-    where: {
-      title: "This Plot is Bananas"
-    }
-  });
-  thisauthor = await Author.findAll({
-    where: {
-      firstname: "J.P."
-    }
-  });
-  BookAuthor.create({
-    bookid: thisbook[0].dataValues.id,
-    authorid: thisauthor[0].dataValues.id
-  });
-
-  thisbook = await Book.findAll({
-    where: {
-      title: "Iron Dragoon"
-    }
-  });
-  thisauthor = await Author.findAll({
-    where: {
-      firstname: "Richard"
-    }
-  });
-  BookAuthor.create({
-    bookid: thisbook[0].dataValues.id,
-    authorid: thisauthor[0].dataValues.id
-  });
-
-  // Create series
-  for (const series of seriesData) {
-    await Series.create({
-      ...series
-    });
-  }
-
-  // Match book to series
-  await Series.findOne({
-    where: {
-      name: "Honor Harrington"
-    }
-  }).then(series => {
-    console.log("Series: ", series.dataValues);
-    Book.update(
-      {
-        seriesid: series.dataValues.id
-      },
-      {
-        where: {
-          title: "The Honor of the Queen"
-        }
-      }).then(function (result) {
-        console.log(result);
-      });
-  });
-  await Series.findOne({
-    where: {
-      name: "This Trilogy is Broken"
-    }
-  }).then(series => {
-    console.log("Series: ", series.dataValues);
-    Book.update(
-      {
-        seriesid: series.dataValues.id  
-      },
-      {
-        where: {
-          title: "This Plot is Bananas"
-        }
-      }
-    ).then(function(result) {
-      console.log(result);
-    });
-  });
-  await Series.findOne({
-    where: {
-      name: "Iron Hearts"
-    }
-  }).then(series => {
-    console.log("Series: ", series.dataValues);
-    Book.update(
-      {
-        seriesid: series.dataValues.id
-      },
-      {
-        where: {
-          title: "Iron Dragoon"
-        }
-      }
-    ).then(function(result) {
-      console.log(result);
-    });
-  });
-
+  const details = [];
   // Create lookups
   for (const l of detailData) {
-    await Lookup.create( {
-      ...l
-    });
+    details.push(
+      await Lookup.create({
+        ...l
+      }));
   }
-
-  await Book.findAll({
-    where: {
-      title: "The Honor of the Queen"
-    }
-  }).then(book => {
-    Lookup.findAll({
-      where: {
-        name: "space",
-        class: "location"
-      }
-    }).then(l => {
-      BookDetail.create({
-        bookid: book[0].dataValues.id,
-        detailid: l[0].dataValues.id
-      });
+  console.log(details);
+  // Create books
+  for (const b of bookData) {
+    const series = await Series.create({
+      ...b.series
     });
-  }).then(book => {
-    Lookup.findAll({
-      where: {
-        name: "military",
-        class: "genre"
-      }
-    }).then(l => {
-      BookDetail.create({
-        bookid: book[0].dataValues.id,
-        detailid: l[0].dataValues.id
+    console.log(series.id);
+    const book = await Book.create({
+      title: b.title,
+      originalPublishedDate: b.originalPublishedDate,
+      seriesorder: b.seriesorder,
+      seriesid: series.id
+    });
+    const author = await Author.create({
+      ...b.author
+    });
+    const bookauthor = await BookAuthor.create({
+      bookid: book.id,
+      authorid: author.id
+    });
+    const edition = await Edition.create({
+      bookid: book.id,
+      published_date: b.edition.published_date,
+      audiolength: b.edition.audiolength
+    });
+    const bookread = await BooksRead.create({
+      editionid: edition.id,
+      userid: b.bookread.userid,
+      startDate: b.bookread.startdate,
+      endDate: b.bookread.enddate
+    });
+    console.log(b.details?.length);
+    for (let i=0; i < b.details?.length; i++) {
+      let d = b.details[i];
+      const dd = details.find(x => x.class == d.class && x.name == d.name);
+      console.log(dd);
+      await BookDetail.create({
+        bookid: book.id,
+        detailid: details.find(x => x.class == d.class && x.name == d.name).id
       })
-    })
-  });
+    }
+  }
 
 
   process.exit(0);

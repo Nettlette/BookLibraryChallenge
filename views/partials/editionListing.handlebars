@@ -14,13 +14,16 @@
         <br>
         Published {{format_date edition.book.originalPublishedDate}}
         <br>
-        Finished on {{format_date endDate}} by {{format_initials user.firstName user.lastName}}
+        Finished on {{format_date endDate}} 
+        {{#if user}}
+         by {{format_initials user.firstName user.lastName}}
+        {{/if}}
       </div>
       <div class="col-3">
         <h5>Genre</h5>
         {{#each edition.book.lookups}}
             {{#if (compare class '===' "genre")}}
-                {{detail}}
+                {{detail}}<br>
             {{/if}}
         {{/each}}
     </div>
@@ -28,7 +31,7 @@
         <h5>Locations</h5>
         {{#each edition.book.lookups}}
             {{#if (compare class '===' "location")}}
-                {{detail}}
+                {{detail}}<br>
             {{/if}}
         {{/each}}
       </div>
