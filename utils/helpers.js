@@ -20,5 +20,14 @@ module.exports = {
 
     format_initials: (first, last) => {
         return first[0] + '.' + last[0] + '.';
+    },
+
+    concat_names: (arr) => {
+        let str = [];
+        for (let i=0; i<arr.length; i++) {
+            console.log(arr[i]);
+            str.push(arr[i].firstname + " " + arr[i].lastname);
+        }
+        return str.join(", ");
     }
 };

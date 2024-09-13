@@ -42,4 +42,7 @@ nav li span {
     margin-left: auto;
 }
 
-
+main {
+    margin-left: 10rem;
+    margin-right: 10rem;
+}

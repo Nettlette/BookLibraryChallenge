@@ -7,10 +7,7 @@
             #{{edition.book.seriesorder}} of the {{edition.book.series.seriesname}} series
         {{/if}}
         <br>
-        by
-            {{#each edition.book.authors}}
-                {{firstname}} {{lastname}}
-            {{/each}}
+        by {{concat_names edition.book.authors}}
         <br>
         Published {{format_date edition.book.originalPublishedDate}}
         <br>

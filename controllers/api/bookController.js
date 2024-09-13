@@ -38,6 +38,23 @@ function getBook(req, res) {
         });
 }
 
+function searchBook(req, res) {
+    Book.findAll({
+        where: req.params.body,
+        include: [
+            {
+                model: Series,
+            },
+        ],
+    })
+        .then((data) => {
+            res.json(data);
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        });
+}
+
 function addNewBook(req, res) {
     Book.create({
         title: req.body.title,
@@ -81,4 +98,4 @@ function deleteBook(req, res) {
         });
 }
 
-module.exports = { getAllBooks, getBook, addNewBook, updateBook, deleteBook };
+module.exports = { getAllBooks, getBook, searchBook, addNewBook, updateBook, deleteBook };

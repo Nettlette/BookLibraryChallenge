@@ -12,8 +12,8 @@ const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
   try {
-    req.session.userId = 1;
-    console.log(req.session.userId);
+    //req.session.userId = 3;
+    console.log(req.session);
     if (req.session.userId == undefined) {
       // Get all blogPosts and JOIN with user data and comment data
       const books = await Book.findAll({
@@ -87,10 +87,7 @@ router.get("/", async (req, res) => {
       // Pass serialized data and session flag into template
       res.render("homepage", {
         bookDisplay,
-        bookreadDisplay,
-        logged_in: req.session.logged_in,
-        userId: req.session.user_id,
-        username: req.session.username
+        bookreadDisplay
       });
     } else {
       // Get all blogPosts and JOIN with user data and comment data
@@ -301,6 +298,10 @@ router.all("/login", (req, res) => {
   }
 
   res.render("login");
+});
+
+router.get("/books", (req, res) => {
+  res.render("bookSearch");
 });
 
 // Export
